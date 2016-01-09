@@ -1,0 +1,42 @@
+﻿<div class="container" ng-controller="ItemAcessoController" ng-init="carregarItemAcesso()">
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <legend> Cadastro Item de Acesso </legend>
+            </div>
+        </div>
+        <form action="" method="POST" role="form" ng-submit="salvar()" >							
+            <div class="row ">
+                <div class="form-group col-sm-6">
+                    <label>Nome</label>
+                    <input class="form-control" name="nome" type="text" placeholder="Nome" ng-model="itemAcesso.nome" required maxlength="60" />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>Link</label>
+                    <input class="form-control" name="link" type="text" placeholder="Link" ng-model="itemAcesso.link" required maxlength="60" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label>Sub Menu</label>
+                    <select ng-model="itemAcesso.subMenu" ng-options="subMenu as subMenu.nome for subMenu in subMenus"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <span class="pull-right">	
+                        <a ng-click="voltar()"class="btn btn-danger btn-padrao">
+                            <span class="glyphicon glyphicon-remove" ></span> Cancelar 
+                        </a>
+                        <button type="submit" class="btn btn-success btn-padrao" >
+                            <span class="glyphicon glyphicon-ok" ></span> Salvar
+                        </button>
+                    </span>		
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12"><hr></div>
+            </div>
+        </form>
+    </fieldset>
+</div>

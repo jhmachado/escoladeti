@@ -1,0 +1,173 @@
+<div class="container" ng-controller="AcompanhamentoSolicitacaoController" ng-init="init()">
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <legend><span class="glyphicon glyphicon-list-alt"></span> Acompanhamento de Solicitações</legend>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-7"> 
+            <div class="form-group">
+                <h4> Filtro por Campos </h4>
+                <hr>
+                <table class="table-responsive tabela-filtro">
+                   <!-- <tr>
+                        <th class="col-md-3"><h5>Data chegada</h5></th>
+                        <th class="col-md-6"><h5>Nome</h5></th>
+                    </tr>-->
+                    <tr>
+                        <td class="col-md-3" >
+                            <label class="data-filtro">Data Chegada</label>
+                            <div class="form-group campos-filtro">
+                                <label class="col-sm-3 control-label label-filtro data-filtro">Inicio</label>
+                                <div class="col-sm-9 campos-filtro">
+                                    <input class="form-control" type="date" ng-model="buscaDataChegadaIni" ng-change="" placeholder="Início" />
+                                </div>
+                            </div> 
+                        </td>
+                        <td class="col-md-6" >
+                            <label>Nome</label>
+                            <div class="form-group campos-filtro">
+                                <div class="col-sm-12 campos-filtro">
+                                    <input class="form-control" type="text" ng-model="buscaMaterial" ng-change=""  placeholder="Material" />
+                                </div>
+                            </div>   
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group campos-filtro">
+                                <label class="col-sm-3 control-label label-filtro data-filtro">Final</label>
+                                <div class="col-sm-9 campos-filtro">
+                                    <input class="form-control" type="date" ng-model="buscaDataChegadaFim" ng-change="" placeholder="Fim" />
+                                </div>
+                            </div>  
+                        </td>
+                        <td>
+                            <div class="form-group campos-filtro">
+                                <div class="col-sm-12 campos-filtro">
+                                    <input class="form-control" type="text" ng-model="buscaResponsavel" ng-change=""  placeholder="Responsável" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group campos-filtro">
+                                <label class="col-sm-3 control-label label-filtro">Num</label>
+                                <div class="col-sm-9 campos-filtro">
+                                    <input class="form-control" type="number" ng-model="buscaSolicitacao" ng-change=""  placeholder="Solicitacao"/>
+                                </div>
+                            </div> 
+                        </td>
+                        <td>
+                            <div class="form-group campos-filtro">
+                                <div class="col-sm-12 campos-filtro">
+                                    <input class="form-control" type="text" ng-model="buscaRevisor" ng-change="" disabled/>
+                                </div>
+                            </div>  
+                        </td>
+                    </tr>
+                </table>
+                <span class="pull-right">
+                <button class="btn btn-success btn-small" ng-click="limpar()" >
+                    <i class="glyphicon glyphicon-refresh" ></i> Limpar Campos
+                </button>
+            </span>
+            </div>
+        </div>
+        <div class="col-sm-5"> 
+            <div class="form-group">
+                <h4> Filtro por Status </h4>
+                <hr>
+                <table class="table table-responsive tabela-filtro">
+                    <tr>
+                        <td class="col-md-12">
+                            <a class="btn-status" href="" ng-click="getPesquisaSolicitacao('AGUARDANDO')" ><img src="./resources/imagens/btn-aguardando.png" alt="botão Aguardando"/><br>aguardando</a> 
+                            <a class="btn-status" href="" ng-click="getPesquisaSolicitacao('PRODUCAO')" ><img src="./resources/imagens/btn-producao.png" alt="botão procução"/><br>produção</a>
+                            <!--<a class="btn-status" href="" ng-click="getPesquisaSolicitacao('PRODUZIDO')" ><img src="./resources/imagens/btn-produzido.png" alt="botão produzido"/><br>produzido</a>-->
+                            <a class="btn-status" href="" ng-click="getPesquisaSolicitacao('FINALIZADO')" ><img src="./resources/imagens/btn-finalizado.png" alt="botão finalizado"/><br>finalizado</a>
+                            <a class="btn-status" href="" ng-click="getPesquisaSolicitacao('CANCELADO')" ><img src="./resources/imagens/btn-cancelado.png" alt="botão cancelado"/><br>cancelado</a>
+                            <a class="btn-status" href="" ng-click="getPesquisaSolicitacao('TODOS')" ><img src="./resources/imagens/btn-todos.png" alt="botão todos"/><br>todos</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-md-10 col-vlg-7">
+            <ul class="cbp_tmtimeline">
+                <li ng-repeat="solicitacaoItem in solicitacaoItens | orderBy:'dataChegada'">
+                    <time class="cbp_tmtime">
+                        <span class="date">chegada</span>
+                        <a href="" ng-click="buscar('dataChegada', solicitacaoItem.dataChegada)" ><span class="time">{{solicitacaoItem.dataChegada | date:'dd-MM-yyyy' }}</span></a>
+                    </time>
+                    <a href="">
+                        <div class="btn-status-linha cbp_tmicon {{getStatus(solicitacaoItem.status)}} animated bounceIn" ng-click="getPesquisaSolicitacao(solicitacaoItem.status)"
+                                style="padding: 10px">
+                            <i class="{{getIcone(solicitacaoItem.status)}}"></i>
+                        </div>
+                    </a>
+                    <div class="cbp_tmlabel">
+                        <div class="p-t-10 p-l-30 p-r-20 p-b-20 xs-p-r-10 xs-p-l-10 xs-p-t-5">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-responsive table-fixed-layout">
+                                        <thead>
+                                        <th class="col-md-2">Solicitação</th>
+                                        <th class="col-md-2">Ordem</th>
+                                        <th ng-show="solicitacaoItem.ordemId" class="col-md-2">Ordem</th>
+                                        <th class="col-md-5">Material</th>
+                                        <th class="col-md-3">Tradução</th>
+                                        </thead>
+                                        <tbody>
+                                        <td><a href="" ng-click="buscar('solicitacaoId', solicitacaoItem.solicitacaoId)" >{{solicitacaoItem.solicitacaoId}}</a></td>
+                                        <td>{{solicitacaoItem.id}}</td>
+                                        <td><a href="" ng-click="buscar('material', solicitacaoItem.material)" >{{solicitacaoItem.material}}</a></td>
+                                        <td><a href="" ng-click="buscar('traducaoMaterial', solicitacaoItem.traducaoMaterial != 'OUTRO' ? solicitacaoItem.traducaoMaterial : solicitacaoItem.outraTraducao)" >{{solicitacaoItem.traducaoMaterial != 'OUTRO' ? solicitacaoItem.traducaoMaterial : solicitacaoItem.outraTraducao }}</a></td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>    
+                            <div class="row base-time-line">
+                                <div class="col-md-8">
+                                    <h4 class="inline m-b-5">
+                                        <label > Responsável: </label>
+                                        <a href="" ng-click="buscar('responsavel', solicitacaoItem.responsavel)" >
+                                            <span class="text-success semi-bold">{{solicitacaoItem.responsavel}}</span>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="col-md-4">
+
+                                    <div class="col-md-12 form-group" data-ng-show=" solicitacaoItem.status == 'AGUARDANDO' || solicitacaoItem.status =='PRODUCAO' "  >
+                                        <button class="btn btn-danger btn-small " style="width: 100%"
+                                                data-ng-click="cancelar(solicitacaoItem)"><i class="glyphicon glyphicon-remove" ></i> Cancelar
+                                        </button>
+                                    </div>
+                                    <div class="col-md-12 form-group" data-ng-show="solicitacaoItem.status == 'AGUARDANDO' ">
+                                        <button class="btn btn-success btn-small input-default" style="width: 100%"
+                                                data-ng-click="produzir(solicitacaoItem)" >
+                                            <i class="fa fa-cogs"></i> Produzir
+                                        </button>
+                                    </div>
+                                    <div class="col-md-12 form-group"
+                                         data-ng-show="solicitacaoItem.status == 'CANCELADO' || solicitacaoItem.status =='PRODUCAO' || solicitacaoItem.status =='FINALIZADO' ">
+                                        <a  class="btn btn-primary btn-small input-default" href="#/ordem-producao/{{solicitacaoItem.id}}" style="width: 100%">
+                                            <i class="fa fa-arrows-alt" ></i> Expandir
+                                        </a>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- END PAGE -->
+</div>
+

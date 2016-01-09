@@ -1,0 +1,40 @@
+<div class="container" ng-controller="PerfilItemAcessoController" ng-init="carregarPerfilAcesso()" >
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <legend> Cadastro de Perfil </legend>
+            </div>
+        </div>
+        <form action="" method="POST" role="form" ng-submit="salvar()">							
+            <div class="row ">
+                <div class="form-group col-sm-5">
+                    <label>Nome do perfil</label>
+                    <input class="form-control" name="nome" type="text" ng-model="perfilAcesso.nome" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-5">
+                    <label>Itens de Acesso</label>
+                    <select ui-select2 class="input-default" name="itensSelecionados" ng-model="itensSelecionados" multiple required>
+                        <option value="{{itemAcesso.id}}" ng-repeat="itemAcesso in itensDeAcesso">{{itemAcesso.nome}}</option>
+                    </select> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <span class="pull-right">	
+                        <a ng-click="voltar()"class="btn btn-danger btn-padrao">
+                            <span class="glyphicon glyphicon-remove" ></span> Cancelar 
+                        </a>
+                        <button type="submit" class="btn btn-success btn-padrao" >
+                            <span class="glyphicon glyphicon-ok" ></span> Salvar
+                        </button>
+                    </span>		
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12"><hr></div>
+            </div>
+        </form>
+    </fieldset>
+</div>

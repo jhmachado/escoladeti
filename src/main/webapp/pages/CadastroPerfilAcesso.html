@@ -1,0 +1,32 @@
+﻿<div class="container" ng-controller="perfilAcessoController" ng-init="carregarPerfil()" ng-init="getItensAcesso()">
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <legend> Cadastro de Perfil </legend>
+            </div>
+        </div>
+        <form action="" method="POST" role="form" ng-submit="salvar()">							
+            <div class="row ">
+                <div class="form-group col-sm-5">
+                    <legend>Nome do perfil</legend>
+                    <input class="form-control" name="nome" type="text" ng-model="perfilAcesso.nome" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <span class="pull-right">	
+                        <a class="btn btn-danger btn-padrao" ng-click="cancelar()">
+                            <span class="glyphicon glyphicon-remove" ></span> Cancelar 
+                        </a>
+                        <button type="submit" class="btn btn-success btn-padrao" >
+                            <span class="glyphicon glyphicon-ok" ></span> Salvar	
+                        </button>
+                    </span>		
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12"><hr></div>
+            </div>
+        </form>
+    </fieldset>
+</div>
